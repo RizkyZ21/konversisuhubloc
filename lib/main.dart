@@ -25,36 +25,43 @@ class _KonversiSuhuState extends State<KonversiSuhu> {
   void konversi() {
     double suhu = double.parse(suhuController.text);
 
-    double c, f, k;
+    double c, f, r, k;
 
     if (satuanInput == "Celsius") {
       c = suhu;
       f = (c * 9 / 5) + 32;
+      r = c * 4 / 5;
       k = c + 273.15;
     } else if (satuanInput == "Fahrenheit") {
       c = (suhu - 32) * 5 / 9;
       f = suhu;
+      r = c * 4 / 5;
+      k = c + 273.15;
+    } else if (satuanInput == "Reamur") {
+      c = suhu * 5 / 4;
+      f = (c * 9 / 5) + 32;
+      r = suhu;
       k = c + 273.15;
     } else {
       c = suhu - 273.15;
       f = (c * 9 / 5) + 32;
+      r = c * 4 / 5;
       k = suhu;
     }
 
-    // setState(() {
-    //   hasil =
-    //       "Celsius : ${c.toStringAsFixed(2)}\nFahrenheit : ${f.toStringAsFixed(2)}\nKelvin : ${k.toStringAsFixed(2)}";
-    // });
     setState(() {
       if (satuanInput == "Celsius") {
         hasil =
-            "Fahrenheit : ${f.toStringAsFixed(2)}\nKelvin : ${k.toStringAsFixed(2)}";
+            "Fahrenheit (°F) : ${f.toStringAsFixed(2)}\nReamur (°R) : ${r.toStringAsFixed(2)}\nKelvin (K) : ${k.toStringAsFixed(2)}";
       } else if (satuanInput == "Fahrenheit") {
         hasil =
-            "Celsius : ${c.toStringAsFixed(2)}\nKelvin : ${k.toStringAsFixed(2)}";
+            "Celsius (°C) : ${c.toStringAsFixed(2)}\nReamur (°R) : ${r.toStringAsFixed(2)}\nKelvin (K) : ${k.toStringAsFixed(2)}";
+      } else if (satuanInput == "Reamur") {
+        hasil =
+            "Celsius (°C) : ${c.toStringAsFixed(2)}\nFahrenheit (°F) : ${f.toStringAsFixed(2)}\nKelvin (K) : ${k.toStringAsFixed(2)}";
       } else {
         hasil =
-            "Celsius : ${c.toStringAsFixed(2)}\nFahrenheit : ${f.toStringAsFixed(2)}";
+            "Celsius (°C) : ${c.toStringAsFixed(2)}\nFahrenheit (°F) : ${f.toStringAsFixed(2)}\nReamur (°R) : ${r.toStringAsFixed(2)}";
       }
     });
   }
@@ -79,7 +86,7 @@ class _KonversiSuhuState extends State<KonversiSuhu> {
 
             DropdownButton<String>(
               value: satuanInput,
-              items: ["Celsius", "Fahrenheit", "Kelvin"]
+              items: ["Celsius", "Fahrenheit", "Reamur", "Kelvin"]
                   .map(
                     (String value) =>
                         DropdownMenuItem(value: value, child: Text(value)),
